@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "726817520255",
+    "project_id": "mil-sabores-pasteleria",
+    "storage_bucket": "mil-sabores-pasteleria.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726817520255:android:b61d8d59ed628528d75d4a",
+        "android_client_info": {
+          "package_name": "com.example.apppasteleria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD857HCPngPyOjaYCNi0AsXThsuikmAQnQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
