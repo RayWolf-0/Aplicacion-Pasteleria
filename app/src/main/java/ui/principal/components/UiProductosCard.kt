@@ -1,4 +1,5 @@
-package com.example.apppasteleria.components
+package com.example.apppasteleria.ui.principal.components
+
 
 
 import androidx.compose.foundation.Image

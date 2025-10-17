@@ -1,4 +1,4 @@
-package com.example.apppasteleria.recordatorio
+package com.example.apppasteleria.ui.recordatorio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -28,10 +28,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.apppasteleria.components.UiProductosCard
-import com.example.apppasteleria.ProfileScreen
-import com.example.apppasteleria.ProfileViewModel
-import com.example.apppasteleria.auth.FirebaseAuthDataSource
+import com.example.apppasteleria.ui.principal.components.UiProductosCard
+import com.example.apppasteleria.ui.profile.ProfileScreen
+import com.example.apppasteleria.ui.profile.ProfileViewModel
+import com.example.apppasteleria.repository.auth.FirebaseAuthDataSource
 import com.example.apppasteleria.data.media.MediaRepository
 import com.example.apppasteleria.vmfactory.ProfileVMFactory
 
@@ -45,7 +45,8 @@ sealed class BottomItem(
     data object Home : BottomItem("home", "Inicio", Icons.Outlined.Home)
     data object Favs : BottomItem("favs", "Favoritos", Icons.Outlined.FavoriteBorder)
     data object Cart : BottomItem("cart", "Carrito", Icons.Outlined.ShoppingCart, badge = 3)
-    data object Agenda : BottomItem("Agenda", "Agenda", Icons.Outlined.PlayArrow)
+
+    data object Agenda : BottomItem("agenda", "Agenda", Icons.Outlined.PlayArrow)
     data object More : BottomItem("more", "Más", Icons.Outlined.Menu)
 }
 
@@ -240,7 +241,7 @@ fun PrincipalScreen(
                 }
             }
 
-            // Recordatorio
+            // AGENDA
             composable(BottomItem.Agenda.route) {
                 val uid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
                 if (uid == null) {

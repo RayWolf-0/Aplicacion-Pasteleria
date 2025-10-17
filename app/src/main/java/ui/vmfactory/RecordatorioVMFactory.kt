@@ -3,7 +3,7 @@ package com.example.apppasteleria.ui.vmfactory
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.apppasteleria.local.AppDatabase
+import com.example.apppasteleria.data.local.AppDatabase
 import com.example.apppasteleria.repository.RecordatorioRepository
 import com.example.apppasteleria.ui.recordatorio.RecordatorioViewModel
 
