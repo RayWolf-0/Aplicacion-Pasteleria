@@ -3,7 +3,7 @@ package com.example.apppasteleria.ui.login
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.apppasteleria.User
+import com.example.apppasteleria.model.User
 import com.example.apppasteleria.repository.auth.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

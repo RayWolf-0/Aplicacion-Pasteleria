@@ -1,6 +1,6 @@
 package com.example.apppasteleria.model.mappers
 
-import com.example.apppasteleria.local.RecordatorioEntity
+import com.example.apppasteleria.data.local.RecordatorioEntity
 import com.example.apppasteleria.model.Recordatorio
 
 fun RecordatorioEntity.toDto() = Recordatorio(
@@ -16,4 +16,5 @@ fun Recordatorio.toEntity() = RecordatorioEntity(
     createdAt = createdAt,
     message = message
 )
+
 

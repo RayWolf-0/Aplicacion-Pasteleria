@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import cl.daeriquelme.appduoc_profe.ui.home.HomeScreen
-import cl.daeriquelme.appduoc_profe.ui.login.LoginScreen
-import cl.daeriquelme.appduoc_profe.ui.principal.PrincipalScreen
-import cl.daeriquelme.appduoc_profe.ui.register.RegistrarseScreen
-import cl.daeriquelme.appduoc_profe.ui.recover.RecuperarPasswordScreen
+import com.example.apppasteleria.ui.home.HomeScreen
+import com.example.apppasteleria.ui.login.LoginScreen
+import com.example.apppasteleria.ui.principal.PrincipalScreen
+import com.example.apppasteleria.ui.register.RegistrarseScreen
+import com.example.apppasteleria.ui.recover.RecuperarPasswordScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

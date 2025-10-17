@@ -1,4 +1,5 @@
-package com.example.apppasteleria.ui.principal.components
+package com.example.apppasteleria.components
+
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.interaction.MutableInteractionSource
