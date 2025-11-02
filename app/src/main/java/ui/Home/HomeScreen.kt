@@ -21,7 +21,7 @@ fun HomeScreen(
     onRecoverClick: () -> Unit,
 ) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Mi App Kotlin") }) }
+        topBar = { TopAppBar(title = { Text(" ") }) }
     ) { inner ->
         HomeContent(
             modifier = Modifier
@@ -61,7 +61,7 @@ private fun HomeContent(
                 .height(150.dp),
             // playing = ui.desdeVM, si tienes VM; por ahora puede quedar por defecto
         )
-        Text("¡Bienvenido!")
+        Text("Pastelería Mil Sabores")
         Button(onClick = onLoginClick) { Text("Login") }
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             TextButton(onClick = onRegisterClick) { Text("Registrarse") }

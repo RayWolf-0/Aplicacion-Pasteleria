@@ -19,7 +19,7 @@ val productosDemo = listOf(
         precio = "1.500 (1kg)",
         imagenRes = R.drawable.dchocolate,
         categoria = "Dulces",
-        descripcion = "Aca se describe el producto"
+        descripcion = "Deliciosos bombones artesanales cubiertos de fino chocolate belga. Ideales para regalar o disfrutar junto a un café."
     ),
     Producto(
         id = 2,
@@ -27,7 +27,7 @@ val productosDemo = listOf(
         precio = "20.000",
         imagenRes = R.drawable.pchocolate,
         categoria = "Pasteles",
-        descripcion = "Aca se describe el producto"
+        descripcion = "Pastel húmedo de chocolate con capas de suave ganache y cobertura brillante. Elaborado con cacao premium."
     ),
     Producto(
         id = 3,
@@ -35,30 +35,30 @@ val productosDemo = listOf(
         precio = "18.000",
         imagenRes = R.drawable.plimon,
         categoria = "Pasteles",
-        descripcion = "Aca se describe el producto"
+        descripcion = "Clásico pie con base de masa sablé, relleno cremoso de limón natural y un merengue italiano tostado. Frescura en cada bocado."
     ),
     Producto(
         id = 4,
-        titulo = "Bombones de chocolate 2",
-        precio = "3.500 (1kg)",
-        imagenRes = R.drawable.dchocolate,
+        titulo = "Dulces de Fresa",
+        precio = "2.500 (1kg)",
+        imagenRes = R.drawable.dulcesfresa,
         categoria = "Dulces",
-        descripcion = "Aca se describe el producto"
+        descripcion = "Suaves caramelos de fresa elaborados con pulpa natural, con un toque de acidez y dulzura que encantan a grandes y pequeños."
     ),
     Producto(
         id = 5,
-        titulo = "Pastel de chocolate 2",
-        precio = "25.000",
-        imagenRes = R.drawable.pchocolate,
-        categoria = "Pasteles",
-        descripcion = "Aca se describe el producto"
+        titulo = "Paleta de Caramelo",
+        precio = "500",
+        imagenRes = R.drawable.pacaramelo,
+        categoria = "Dulces",
+        descripcion = "Coloridas paletas artesanales de caramelo, preparadas con esencias naturales y un brillo irresistible."
     ),
     Producto(
         id = 6,
-        titulo = "Pie de limón 2",
-        precio = "20.000",
-        imagenRes = R.drawable.plimon,
+        titulo = "Pastel Red Velvet",
+        precio = "28.000",
+        imagenRes = R.drawable.predvelvet,
         categoria = "Pasteles",
-        descripcion = "Aca se describe el producto"
+        descripcion = "Pastel de terciopelo rojo con suaves capas de bizcocho y crema de queso. Un clásico elegante para toda ocasión."
     ),
 )

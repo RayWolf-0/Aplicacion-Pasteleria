@@ -33,6 +33,22 @@ class PrincipalViewModel : ViewModel() {
     private val _productosFiltrados = MutableStateFlow<List<Producto>>(emptyList())
     val productosFiltrados: StateFlow<List<Producto>> = _productosFiltrados.asStateFlow()
 
+    // --- CARRITO ---
+    private val _carrito = MutableStateFlow<List<Producto>>(emptyList())
+    val carrito: StateFlow<List<Producto>> = _carrito.asStateFlow()
+
+    fun agregarAlCarrito(producto: Producto) {
+        val listaActual = _carrito.value.toMutableList()
+        if (!listaActual.contains(producto)) {
+            listaActual.add(producto)
+            _carrito.value = listaActual
+        }
+    }
+
+    fun limpiarCarrito() {
+        _carrito.value = emptyList()
+    }
+
     // ---------- Acciones ----------
     fun setCategoria(cat: String) {
         _categoriaSel.value = cat

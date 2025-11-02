@@ -34,6 +34,7 @@ import com.example.apppasteleria.ui.profile.ProfileViewModel
 import com.example.apppasteleria.repository.auth.FirebaseAuthDataSource
 import com.example.apppasteleria.data.media.MediaRepository
 import com.example.apppasteleria.vmfactory.ProfileVMFactory
+import com.example.apppasteleria.ui.principal.components.AnimatedMenuIcon
 
 // --- Bottom items ---
 sealed class BottomItem(
@@ -129,8 +130,8 @@ fun PrincipalScreen(
             TopAppBar(
                 title = { Text("Principal") },
                 actions = {
-                    IconButton(onClick = { expanded = true }) {
-                        Icon(Icons.Outlined.MoreVert, contentDescription = "Menú")
+                    IconButton(onClick = { expanded = !expanded }) {
+                        AnimatedMenuIcon(isExpanded = expanded)
                     }
                     DropdownMenu(
                         expanded = expanded,
@@ -183,7 +184,7 @@ fun PrincipalScreen(
                 ) {
                     val saludo = "Hola ${state.email ?: "usuario"}"
                     Text(saludo, style = MaterialTheme.typography.headlineSmall)
-                    Text("Bienvenido a tu pantalla principal.")
+                    Text("Bienvenido")
 
                     // Filtros por categoría
                     LazyRow(
@@ -218,7 +219,7 @@ fun PrincipalScreen(
                                 UiProductosCard(
                                     producto = producto,
                                     onAgregar = {
-                                        // TODO: vm.agregarAlCarrito(producto.id)
+                                        vm.agregarAlCarrito(it)
                                     }
                                 )
                             }
@@ -236,10 +237,50 @@ fun PrincipalScreen(
 
             // CARRITO
             composable(BottomItem.Cart.route) {
-                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Carrito")
+                val carrito by vm.carrito.collectAsState()
+
+                if (carrito.isEmpty()) {
+                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text("Tu carrito está vacío 🛒")
+                    }
+                } else {
+                    Column(
+                        Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Text("Carrito de Compras", style = MaterialTheme.typography.headlineSmall)
+
+                        carrito.forEach { producto ->
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                            ) {
+                                Row(
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .padding(8.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween
+                                ) {
+                                    Text(producto.titulo)
+                                    Text("$${producto.precio}")
+                                }
+                            }
+                        }
+
+                        Spacer(Modifier.height(16.dp))
+
+                        Button(
+                            onClick = { vm.limpiarCarrito() },
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                        ) {
+                            Text("Vaciar carrito")
+                        }
+                    }
                 }
             }
+
 
             // AGENDA
             composable(BottomItem.Agenda.route) {

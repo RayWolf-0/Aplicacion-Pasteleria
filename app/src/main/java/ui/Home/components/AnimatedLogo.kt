@@ -1,88 +1,88 @@
 package com.example.apppasteleria.ui.home.components
 
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.apppasteleria.R
 
 @Composable
 fun AnimatedLogo(
-    modifier: Modifier = Modifier,
     logoRes: Int = R.drawable.logo,
+    modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Fit
 ) {
-    // Entrada: pop + fade-in
-    var appeared by remember { mutableStateOf(false) }
-    val enterScale by animateFloatAsState(
-        targetValue = if (appeared) 1f else 0.1f,
-        animationSpec = spring(stiffness = Spring.StiffnessLow),
-        label = "enterScale"
-    )
-    val enterAlpha by animateFloatAsState(
-        targetValue = if (appeared) 3f else 0f,
-        animationSpec = tween(350, easing = FastOutSlowInEasing),
-        label = "enterAlpha"
-    )
-
-    // Animaciones infinitas: pulso + balanceo
-    val infinite = rememberInfiniteTransition(label = "logoInfinite")
-    val pulse by infinite.animateFloat(
-        initialValue = 0.1f,
-        targetValue = 2f,
+    // Transición infinita para el brillo
+    val infiniteTransition = rememberInfiniteTransition(label = "sparkleAnim")
+    val shimmerX by infiniteTransition.animateFloat(
+        initialValue = -200f,
+        targetValue = 800f,
         animationSpec = infiniteRepeatable(
-            animation = tween(1400, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
+            animation = tween(durationMillis = 4000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
         ),
-        label = "pulse"
-    )
-    val tilt by infinite.animateFloat(
-        initialValue = -15f,
-        targetValue = 15f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(2200, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "tilt"
+        label = "shimmerX"
     )
 
-    // Feedback al toque (press)
-    val interaction = remember { MutableInteractionSource() }
-    val pressed by interaction.collectIsPressedAsState()
-    val pressScale by animateFloatAsState(
-        targetValue = if (pressed) 0.98f else 1f,
-        animationSpec = tween(100),
-        label = "pressScale"
-    )
-
-    LaunchedEffect(Unit) { appeared = true }
-
-    Image(
-        painter = painterResource(id = logoRes),
-        contentDescription = "Logo App",
-        contentScale = contentScale,
+    Box(
         modifier = modifier
-            .fillMaxWidth()
-            .height(150.dp)
-            .graphicsLayer {
-                // escala total = entrada * pulso infinito * feedback de presión
-                val finalScale = enterScale * pulse * pressScale
-                scaleX = finalScale
-                scaleY = finalScale
-                rotationZ = tilt
-                alpha = enterAlpha
+            .fillMaxSize()
+            .drawWithContent {
+                // Primero dibuja el contenido (el logo)
+                drawContent()
+
+                // Colores cálidos tipo miel/azúcar
+                val sugarGlow = Color(0xFFFFE08A).copy(alpha = 0.25f)
+                val honeyGlow = Color(0xFFFFB300).copy(alpha = 0.15f)
+
+                // Reflejo animado que se mueve por el logo
+                drawCircle(
+                    color = sugarGlow,
+                    radius = 120f,
+                    center = Offset(shimmerX, size.height / 3f),
+                    blendMode = BlendMode.Lighten
+                )
+                drawCircle(
+                    color = honeyGlow,
+                    radius = 80f,
+                    center = Offset(shimmerX - 60f, size.height / 2f),
+                    blendMode = BlendMode.Lighten
+                )
+
+                // Pequeños brillos fijos tipo azúcar cristalizada
+                for (i in 0 until 5) {
+                    val x = (i * size.width / 5f) + 40f
+                    val y = (i * size.height / 6f) + 25f
+                    drawCircle(
+                        color = if (i % 2 == 0) sugarGlow else honeyGlow,
+                        radius = 25f,
+                        center = Offset(x, y),
+                        blendMode = BlendMode.Lighten
+                    )
+                }
             }
-            // Para que el press funcione aunque no tenga onClick (solo feedback táctil visual)
-            .then(Modifier) // placeholder para extender si luego lo haces clickeable
-        ,
-    )
+    ) {
+        // Dibuja el logo dentro del Box
+        Image(
+            painter = painterResource(id = logoRes),
+            contentDescription = "Logo App",
+            contentScale = contentScale,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
+
+
+
+
+
