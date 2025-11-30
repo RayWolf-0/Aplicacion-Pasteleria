@@ -1,14 +1,18 @@
 package com.example.apppasteleria.ui.register
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,13 +23,8 @@ fun RegistrarseScreen(
     vm: RegisterViewModel = viewModel()
 ) {
     val state by vm.ui.collectAsState()
-
-    // Navegación reactiva: cuando registered = true → navegar (a Login)
-    LaunchedEffect(state.registered) {
-        if (state.registered) onRegistered()
-    }
-
     val snackbarHostState = remember { SnackbarHostState() }
+
     LaunchedEffect(state.message) {
         state.message?.let {
             snackbarHostState.showSnackbar(it)
@@ -33,74 +32,191 @@ fun RegistrarseScreen(
         }
     }
 
+    LaunchedEffect(state.registered) {
+        if (state.registered) {
+            onRegistered()
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Registrarse") },
-                navigationIcon = { TextButton(onClick = onBack) { Text("Atrás") } }
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
+                    }
+                }
             )
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-    ) { inner ->
-        Box(
+    ) { padding ->
+
+        Column(
             modifier = Modifier
-                .padding(inner)
+                .padding(padding)
+                .padding(16.dp)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.TopCenter),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+            // 1. RUT
+            OutlinedTextField(
+                value = state.rut,
+                onValueChange = vm::onRutChange,
+                label = { Text("RUT (Será tu ID)") },
+                placeholder = { Text("Ej: 12345678-9") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 2. NOMBRE
+            OutlinedTextField(
+                value = state.nombre,
+                onValueChange = vm::onNombreChange,
+                label = { Text("Nombre") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 3. APELLIDO
+            OutlinedTextField(
+                value = state.apellido,
+                onValueChange = vm::onApellidoChange,
+                label = { Text("Apellido") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 4. FECHA NACIMIENTO (CORREGIDO EL ERROR AQUÍ)
+            OutlinedTextField(
+                value = state.fechaNacimiento,
+                onValueChange = vm::onFechaNacimientoChange,
+                label = { Text("Fecha Nacimiento (DD/MM/AAAA)") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 5. TELÉFONO
+            OutlinedTextField(
+                value = state.telefono,
+                onValueChange = vm::onTelefonoChange,
+                label = { Text("Teléfono") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Phone,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 6. DIRECCIÓN
+            OutlinedTextField(
+                value = state.direccion,
+                onValueChange = vm::onDireccionChange,
+                label = { Text("Dirección") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // 7. CORREO
+            OutlinedTextField(
+                value = state.email,
+                onValueChange = vm::onEmailChange,
+                label = { Text("Correo") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Email,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+
+            OutlinedTextField(
+                value = state.password,
+                onValueChange = vm::onPasswordChange,
+                label = { Text("Contraseña") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Next
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+
+            OutlinedTextField(
+                value = state.confirm,
+                onValueChange = vm::onConfirmChange,
+                label = { Text("Confirmar contraseña") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation(),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                )
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Button(
+                onClick = vm::registrar,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !state.loading
             ) {
-                OutlinedTextField(
-                    value = state.email,
-                    onValueChange = vm::onEmailChange,
-                    label = { Text("Correo electrónico") },
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = state.password,
-                    onValueChange = vm::onPasswordChange,
-                    label = { Text("Contraseña") },
-                    singleLine = true,
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                OutlinedTextField(
-                    value = state.confirm,
-                    onValueChange = vm::onConfirmChange,
-                    label = { Text("Confirmar contraseña") },
-                    singleLine = true,
-                    visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                if (state.error != null) {
-                    Text(state.error!!, color = MaterialTheme.colorScheme.error)
-                }
-
-                Button(
-                    onClick = vm::submit,
-                    enabled = !state.loading,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(if (state.loading) "Creando cuenta..." else "Crear cuenta")
+                if (state.loading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Guardando...")
+                } else {
+                    Text("Crear cuenta")
                 }
             }
 
-            if (state.loading) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .size(48.dp)
-                )
+            state.error?.let { err ->
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(text = err, color = MaterialTheme.colorScheme.error)
             }
+
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
+

@@ -4,22 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
-
-    <!-- NUEVOS permisos para cámara/galería -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!-- Android 13+ -->
-    <uses-permission
-        android:name="android.permission.READ_MEDIA_IMAGES"
-        android:required="false" />
-    <!-- Android 12- -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <!-- No bloquear instalación si no hay cámara -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" android:required="false" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-feature android:name="android.hardware.camera.any" android:required="false" />
 
     <application
-        android:allowBackup="true"
+        android:usesCleartextTraffic="true"  android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppPasteleria">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -34,7 +26,6 @@
             android:theme="@style/Theme.AppPasteleria">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
